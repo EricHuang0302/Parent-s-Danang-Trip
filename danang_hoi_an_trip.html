@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>爸媽旅遊行程｜峴港・會安</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #0f766e;
+      --accent2: #1d4ed8;
+      --soft: #ecfeff;
+      --tag: #eef2ff;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #eef6ff 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f766e 0%, #1d4ed8 100%);
+      color: white;
+      border-radius: 28px;
+      padding: 30px 26px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.95;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 22px 0 30px;
+    }
+
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .selector {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 20px;
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+    }
+
+    .selector-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .selector h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .selector p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .date-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+    }
+
+    .date-btn {
+      border: 1px solid #cbd5e1;
+      background: white;
+      color: var(--text);
+      padding: 12px 10px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .date-btn small {
+      display: block;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    .date-btn:hover {
+      transform: translateY(-1px);
+      border-color: #93c5fd;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.12);
+    }
+
+    .date-btn.active {
+      background: linear-gradient(135deg, #0f766e 0%, #1d4ed8 100%);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 12px 24px rgba(29, 78, 216, 0.22);
+    }
+
+    .date-btn.active small {
+      color: rgba(255,255,255,0.9);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+    }
+
+    .day {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: none;
+    }
+
+    .day.active {
+      display: block;
+    }
+
+    .day-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      background: linear-gradient(90deg, #f0fdfa 0%, #eff6ff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .day-head h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .city {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 14px;
+      background: white;
+      border: 1px solid #dbeafe;
+      padding: 8px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .day-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .spot {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .spot-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .spot h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .tag {
+      flex: 0 0 auto;
+      font-size: 12px;
+      color: #3730a3;
+      background: var(--tag);
+      border: 1px solid #c7d2fe;
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    .spot p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid transparent;
+    }
+
+    .btn.map {
+      background: #111827;
+      color: white;
+    }
+
+    .btn.alt {
+      background: white;
+      color: var(--accent2);
+      border-color: #bfdbfe;
+    }
+
+    .note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      padding: 14px 16px;
+      border-radius: 16px;
+      line-height: 1.7;
+      margin-top: 26px;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .hero h1 { font-size: 26px; }
+      .day-head { align-items: flex-start; flex-direction: column; }
+      .spot-top { flex-direction: column; }
+      .selector { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>爸媽旅遊行程｜峴港・會安</h1>
+      <p>直接點日期，就可以看到那一天的住宿、景點、餐廳與 Google Maps 連結。</p>
+      <div class="meta">
+        <span class="pill">去程：2026/6/21 09:45–11:35</span>
+        <span class="pill">回程：2026/6/27 12:55–16:45</span>
+        <span class="pill">旅遊區域：峴港＋會安</span>
+      </div>
+    </section>
+
+    <section class="summary">
+      <div class="summary-card">
+        <h3>住宿分配</h3>
+        <p>6/21–6/22 住峴港 Hilton Da Nang；6/23–6/24 住會安 La Siesta Hoi An Resort &amp; Spa；6/25–6/26 回峴港。</p>
+      </div>
+      <div class="summary-card">
+        <h3>已固定安排</h3>
+        <p>第一天晚餐 BẾP CUỐN；6/21 晚上看龍橋噴火；6/24 為會安一日遊日。</p>
+      </div>
+      <div class="summary-card">
+        <h3>主要景點</h3>
+        <p>粉紅教堂、龍橋、金龍夜市、五行山、巴拿山、會安古鎮。</p>
+      </div>
+    </section>
+
+    <section class="selector">
+      <div class="selector-top">
+        <h2>點日期看當天行程</h2>
+        <p>預設先打開第一天，之後直接點日期切換。</p>
+      </div>
+      <div class="date-buttons">
+        <button class="date-btn active" data-day="day-0621">6/21<small>峴港</small></button>
+        <button class="date-btn" data-day="day-0622">6/22<small>峴港</small></button>
+        <button class="date-btn" data-day="day-0623">6/23<small>峴港 → 會安</small></button>
+        <button class="date-btn" data-day="day-0624">6/24<small>會安</small></button>
+        <button class="date-btn" data-day="day-0625">6/25<small>峴港</small></button>
+        <button class="date-btn" data-day="day-0626">6/26<small>峴港</small></button>
+        <button class="date-btn" data-day="day-0627">6/27<small>返程</small></button>
+      </div>
+    </section>
+
+    <section class="timeline">
+      <article class="day active" id="day-0621">
+        <div class="day-head">
+          <h2>6/21（日）</h2>
+          <div class="city">峴港</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>Hilton Da Nang</h3>
+              <span class="tag">住宿</span>
+            </div>
+            <p>第一晚入住，靠韓江，之後去市區景點也方便。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Hilton%20Da%20Nang">Google Maps</a>
+            </div>
+          </div>
+
+          <div class="spot">
+            <div class="spot-top">
+              <h3>BẾP CUỐN 越南料理</h3>
+              <span class="tag">晚餐</span>
+            </div>
+            <p>第一天晚餐先吃這間，吃完再接市區夜景路線。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=B%E1%BA%BEP%20CU%E1%BB%90N%20Da%20Nang">Google Maps</a>
+            </div>
+          </div>
+
+          <div class="spot">
+            <div class="spot-top">
+              <h3>粉紅教堂（Da Nang Cathedral）</h3>
+              <span class="tag">拍照</span>
+            </div>
+            <p>峴港市中心代表景點之一，外觀很醒目，適合和市區散步排在一起。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Da%20Nang%20Cathedral">Google Maps</a>
+            </div>
+          </div>
+
+          <div class="spot">
+            <div class="spot-top">
+              <h3>龍橋（21:00 噴火）</h3>
+              <span class="tag">夜景</span>
+            </div>
+            <p>晚上看龍橋噴火，再接附近夜市最順。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Dragon%20Bridge%20Da%20Nang">Google Maps</a>
+            </div>
+          </div>
+
+          <div class="spot">
+            <div class="spot-top">
+              <h3>金龍夜市（Son Tra Night Market）</h3>
+              <span class="tag">夜市</span>
+            </div>
+            <p>靠近龍橋，適合看完噴火後順路逛。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Son%20Tra%20Night%20Market%20Da%20Nang">Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="day" id="day-0622">
+        <div class="day-head">
+          <h2>6/22（一）</h2>
+          <div class="city">峴港</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>Hilton Da Nang</h3>
+              <span class="tag">住宿</span>
+            </div>
+            <p>第二晚仍住這裡。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Hilton%20Da%20Nang">Google Maps</a>
+            </div>
+          </div>
+
+          <div class="spot">
+            <div class="spot-top">
+              <h3>五行山（The Marble Mountains）</h3>
+              <span class="tag">景點</span>
+            </div>
+            <p>峴港經典景點，有山、洞穴、寺廟與觀景視角。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=The%20Marble%20Mountains%20Da%20Nang">Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="day" id="day-0623">
+        <div class="day-head">
+          <h2>6/23（二）</h2>
+          <div class="city">峴港 → 會安</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>La Siesta Hoi An Resort &amp; Spa</h3>
+              <span class="tag">住宿</span>
+            </div>
+            <p>移動到會安後入住，接下來兩晚住這裡。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=La%20Siesta%20Hoi%20An%20Resort%20%26%20Spa">Google Maps</a>
+              <a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Hoi%20An%20Ancient%20Town">會安古鎮</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="day" id="day-0624">
+        <div class="day-head">
+          <h2>6/24（三）</h2>
+          <div class="city">會安</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>La Siesta Hoi An Resort &amp; Spa</h3>
+              <span class="tag">住宿</span>
+            </div>
+            <p>第二晚住會安。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=La%20Siesta%20Hoi%20An%20Resort%20%26%20Spa">Google Maps</a>
+            </div>
+          </div>
+
+          <div class="spot">
+            <div class="spot-top">
+              <h3>會安一日遊</h3>
+              <span class="tag">已購行程</span>
+            </div>
+            <p>這天保留給你另外購買的一日遊。若之後確定內容，可以再把景點逐一補進來。</p>
+            <div class="links">
+              <a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Hoi%20An%20Ancient%20Town">會安古鎮</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="day" id="day-0625">
+        <div class="day-head">
+          <h2>6/25（四）</h2>
+          <div class="city">峴港</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>巴拿山（Sun World Ba Na Hills）</h3>
+              <span class="tag">景點</span>
+            </div>
+            <p>回到峴港後安排巴拿山，這天建議留比較完整的時間。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sun%20World%20Ba%20Na%20Hills">Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="day" id="day-0626">
+        <div class="day-head">
+          <h2>6/26（五）</h2>
+          <div class="city">峴港</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>峴港自由安排</h3>
+              <span class="tag">彈性日</span>
+            </div>
+            <p>這天可當作購物、休息、補景點或備用日。若想再看一次龍橋，也可排晚上回市區。</p>
+            <div class="links">
+              <a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Dragon%20Bridge%20Da%20Nang">龍橋</a>
+              <a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Han%20Market%20Da%20Nang">韓市場</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="day" id="day-0627">
+        <div class="day-head">
+          <h2>6/27（六）</h2>
+          <div class="city">返程</div>
+        </div>
+        <div class="day-body">
+          <div class="spot">
+            <div class="spot-top">
+              <h3>峴港國際機場</h3>
+              <span class="tag">回程</span>
+            </div>
+            <p>中午班機回台北，建議預留提早到機場的時間。</p>
+            <div class="links">
+              <a class="btn map" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Da%20Nang%20International%20Airport">Google Maps</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="note">
+      備註：6/25、6/26 若你之後確認峴港飯店，我可以再把住宿與連結一起補進去。若 6/24 的一日遊內容確定，也能直接把每個景點加入這份網頁。
+    </div>
+
+    <footer>
+      製作給爸媽使用的旅遊網頁版本｜可直接開啟並用手機點 Google Maps 導航
+    </footer>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.date-btn');
+    const days = document.querySelectorAll('.day');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.day;
+
+        buttons.forEach((btn) => btn.classList.remove('active'));
+        days.forEach((day) => day.classList.remove('active'));
+
+        button.classList.add('active');
+        const targetDay = document.getElementById(targetId);
+        if (targetDay) {
+          targetDay.classList.add('active');
+          targetDay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
