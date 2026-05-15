@@ -1,0 +1,971 @@
+
+Claude finished the response
+You said: 我在幫我爸媽安排越南行程 幫我寫一個html網頁
+我在幫我爸媽安排越南行程 幫我寫一個html網頁
+
+6/21 峴港 住:Hilton Da Nang 長榮航空 09:45 起飛,11:35 落地 Tiệm Vàng Soạn Hà 晚餐:BẾP CUỐN 越南料理 粉紅教堂 龍橋 金龍夜市 21:00 龍橋噴火
+
+6/22 峴港 住:Hilton Da Nang 五行山 The Marble Mountains
+
+6/23 峴港 → 會安 住:La Siesta Hoi An Resort & Spa 會安古鎮(需購買門票) -日本橋(來遠橋) -福建會館 -陳家祠堂 Uncle Huan Coffee(有拉花) 晚餐:Morning Glory(可品嚐會安特色菜:高樓麵 Cao Lầu、廣麵 Mì Quảng、白玫瑰 Bánh Bao Bánh Vạc、炸雲吞 Hoành Thánh Chiên、雞肉飯 Cơm Gà)
+
+6/24 會安 住:La Siesta Hoi An Resort & Spa 一日遊 椰子船(Cam Thanh Coconut Village)
+
+6/25 峴港 Grab 到巴拿山 越南順化皇城造景入口 搭纜車上山 巴拿山佛手天空步道(Golden Bridge) 花園區散步 靈應寺 大佛 法國村 中餐:園區內自助餐(可選 Four Seasons/Taiga/Bharata 等) 下午離開巴拿山 搭纜車下山 Grab 返回峴港 註記:巴拿山山上溫度通常至少會比峴港市區低將近 10 度,建議多帶一件薄外套
+
+6/26 峴港
+
+6/27 峴港機場 12:55 起飛 16:45 抵達台灣
+
+幫我寫一個html 可以讓他們透過點不日期 看不同天形成 每個地方都要有google map 連結
+
+Show more
+中午12:24
+Claude responded: 行程網頁完成了！🎉
+
+Viewed a file, created a file, read a file
+Viewed a file, created a file, read a file
+行程網頁完成了！🎉
+
+功能說明：
+
+點選上方 日期按鈕（21–27） 即可切換每天的行程
+每個景點、餐廳都附有 Google Maps 連結，點擊後直接開啟地圖
+航班資訊用特別的深色卡片呈現，清楚顯示起降時間
+巴拿山有 🧥 帶薄外套 的溫馨提醒
+設計風格： 以沙色、深藍、金色為主調，帶點東南亞旅遊雜誌的質感，希望爸媽用起來覺得賞心悅目 😊
+
+
+Vietnam trip
+Code · HTML 
+
+請使用
+
+Claude is AI and can make mistakes. Please double-check responses.
+Vietnam trip · HTML
+Copy
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>越南之旅 2025 ✈ 峴港 · 會安</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+TC:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #F5ECD7;
+    --deep: #1A2B3C;
+    --teal: #2E7D72;
+    --gold: #C9973A;
+    --blush: #E8C4A0;
+    --light: #FBF7F0;
+    --muted: #7A6B5A;
+    --accent: #D4614A;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    background: var(--light);
+    color: var(--deep);
+    font-family: 'Noto Serif TC', serif;
+    min-height: 100vh;
+  }
+ 
+  /* HERO */
+  .hero {
+    background: var(--deep);
+    padding: 60px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(46,125,114,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 30%, rgba(201,151,58,0.2) 0%, transparent 50%);
+  }
+  .hero-tag {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 8vw, 72px);
+    color: var(--sand);
+    line-height: 1.1;
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--blush);
+    position: relative;
+    margin-bottom: 40px;
+  }
+ 
+  /* DATE NAV */
+  .date-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 0 24px;
+    position: relative;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .date-nav::-webkit-scrollbar { display: none; }
+  .date-btn {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--blush);
+    padding: 10px 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    position: relative;
+  }
+  .date-btn .day-num {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .date-btn .day-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .date-btn:hover {
+    background: rgba(201,151,58,0.2);
+    border-color: var(--gold);
+    color: #fff;
+  }
+  .date-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--deep);
+  }
+  .date-btn.active .day-num,
+  .date-btn.active .day-label { color: var(--deep); opacity: 1; }
+ 
+  /* MAIN CONTENT */
+  .main { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
+ 
+  .day-panel { display: none; animation: fadeUp 0.4s ease; }
+  .day-panel.active { display: block; }
+ 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+ 
+  .day-header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--blush);
+  }
+  .day-header .date-full {
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .day-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--deep);
+    margin-bottom: 8px;
+  }
+  .day-header .hotel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sand);
+    border: 1px solid var(--blush);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+ 
+  /* ITEMS */
+  .item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    align-items: flex-start;
+  }
+  .item-image {
+    width: 200px;
+    height: 140px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin-top: 2px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .item-with-image {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .item-with-image .item-body {
+    width: 100%;
+  }
+  .item-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .icon-transport { background: #E8F4F2; }
+  .icon-sight { background: #FEF4E8; }
+  .icon-food { background: #FCE8E5; }
+  .icon-shop { background: #EAF0FB; }
+  .icon-note { background: #F0F0F0; }
+ 
+  .item-body { flex: 1; }
+  .item-type {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .item-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .item-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+ 
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    color: var(--teal);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--teal);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .map-link:hover { color: var(--accent); border-color: var(--accent); }
+  .map-link svg { width: 12px; height: 12px; }
+ 
+  /* TIME BADGE */
+  .time-badge {
+    display: inline-block;
+    background: var(--deep);
+    color: var(--gold);
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+ 
+  /* SECTION DIVIDER */
+  .section-label {
+    font-family: 'Lato', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 40px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--blush), transparent);
+  }
+ 
+  /* NOTE BOX */
+  .note-box {
+    background: linear-gradient(135deg, #FFF8EE, #FEF4E8);
+    border: 1px solid var(--blush);
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin: 24px 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .note-box strong { color: var(--deep); }
+ 
+  /* MENU LIST */
+  .menu-list {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .menu-tag {
+    background: var(--sand);
+    border: 1px solid var(--blush);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--deep);
+  }
+ 
+  /* REST DAY */
+  .rest-day {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--muted);
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+  }
+  .rest-day::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(26,43,60,0.75) 0%, rgba(46,125,114,0.6) 100%);
+    z-index: 0;
+  }
+  .rest-day > * { position: relative; z-index: 1; }
+  .rest-day .big-emoji { font-size: 56px; margin-bottom: 16px; }
+  .rest-day h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 8px; }
+  .rest-day p { font-size: 14px; line-height: 1.7; color: #fff; }
+ 
+  /* FLIGHT CARD */
+  .flight-card {
+    background: var(--deep);
+    color: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .flight-card .airline {
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .flight-times {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+  }
+  .flight-time { text-align: center; }
+  .flight-time .time { font-family: 'Playfair Display', serif; font-size: 28px; color: #fff; }
+  .flight-time .city { font-size: 11px; color: var(--blush); letter-spacing: 1px; }
+  .flight-arrow {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--teal), var(--gold));
+    position: relative;
+    margin: 0 8px;
+  }
+  .flight-arrow::after {
+    content: '✈';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--deep);
+    padding: 0 4px;
+    font-size: 14px;
+    color: var(--gold);
+  }
+ 
+  @media (max-width: 500px) {
+    .date-nav { justify-content: flex-start; }
+    .flight-card { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+ 
+<div class="hero">
+  <div class="hero-tag">✈ 家族旅遊 · 2025</div>
+  <h1>越南之旅<br><span>峴港 · 會安</span></h1>
+  <div class="hero-sub">6月21日 — 6月27日 · 七天六夜</div>
+ 
+  <nav class="date-nav">
+    <button class="date-btn active" onclick="showDay('d621')">
+      <span class="day-num">21</span>
+      <span class="day-label">六月</span>
+    </button>
+    <button class="date-btn" onclick="showDay('d622')">
+      <span class="day-num">22</span>
+      <span class="day-label">六月</span>
+    </button>
+    <button class="date-btn" onclick="showDay('d623')">
+      <span class="day-num">23</span>
+      <span class="day-label">六月</span>
+    </button>
+    <button class="date-btn" onclick="showDay('d624')">
+      <span class="day-num">24</span>
+      <span class="day-label">六月</span>
+    </button>
+    <button class="date-btn" onclick="showDay('d625')">
+      <span class="day-num">25</span>
+      <span class="day-label">六月</span>
+    </button>
+    <button class="date-btn" onclick="showDay('d626')">
+      <span class="day-num">26</span>
+      <span class="day-label">六月</span>
+    </button>
+    <button class="date-btn" onclick="showDay('d627')">
+      <span class="day-num">27</span>
+      <span class="day-label">六月</span>
+    </button>
+  </nav>
+</div>
+ 
+<main class="main">
+ 
+  <!-- 6/21 -->
+  <div id="d621" class="day-panel active">
+    <div class="day-header">
+      <div class="date-full">2025年6月21日 · 第一天</div>
+      <h2>抵達峴港</h2>
+      <span class="hotel-tag">🏨 Hilton Da Nang</span>
+    </div>
+ 
+    <div class="flight-card">
+      <div>
+        <div class="airline">長榮航空 EVA AIR</div>
+        <div style="font-size:12px;color:var(--blush);">台灣 → 峴港</div>
+      </div>
+      <div class="flight-times">
+        <div class="flight-time">
+          <div class="time">09:45</div>
+          <div class="city">台灣 出發</div>
+        </div>
+        <div class="flight-arrow"></div>
+        <div class="flight-time">
+          <div class="time">11:35</div>
+          <div class="city">峴港 落地</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="section-label">下午 · 購物</div>
+ 
+    <div class="item">
+      <div class="item-icon icon-shop">💍</div>
+      <div class="item-body">
+        <div class="item-type">金飾店</div>
+        <div class="item-name">Tiệm Vàng Soạn Hà</div>
+        <div class="item-desc">當地知名金飾店，可欣賞越南傳統金飾工藝。</div>
+        <a class="map-link" href="https://maps.google.com/?q=Ti%E1%BB%87m+V%C3%A0ng+So%E1%BA%A1n+H%C3%A0+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          在 Google Maps 查看
+        </a>
+      </div>
+    </div>
+ 
+    <div class="section-label">晚上 · 美食 & 景點</div>
+ 
+    <div class="item">
+      <div class="item-icon icon-food">🍜</div>
+      <div class="item-body">
+        <div class="item-type">晚餐</div>
+        <div class="item-name">BẾP CUỐN 越南料理</div>
+        <div class="item-desc">峴港人氣越南料理餐廳，主打各式越南捲餅料理。</div>
+        <a class="map-link" href="https://maps.google.com/?q=B%E1%BA%BEP+CU%E1%BB%90N+Da+Nang" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          在 Google Maps 查看
+        </a>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1569163139394-de4798aa62b2?w=800&q=80" alt="粉紅教堂">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">💒</div>
+        <div class="item-body">
+          <div class="item-type">景點</div>
+          <div class="item-name">粉紅教堂（峴港大教堂）</div>
+          <div class="item-desc">峴港地標之一，法式哥德風格的粉紅色建築，適合拍照留念。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Da+Nang+Cathedral+Pink+Church" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1557804506-669714d2e9d8?w=800&q=80" alt="龍橋">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🐉</div>
+        <div class="item-body">
+          <div class="item-type">景點</div>
+          <div class="item-name">龍橋（Han River Dragon Bridge）</div>
+          <div class="item-desc">橫跨韓江的知名龍形大橋，夜間燈光璀璨。</div>
+          <div class="time-badge">🔥 21:00 噴火表演</div>
+          <div class="item-desc">每週六、日晚上 9 點有龍頭噴火、噴水表演，非常壯觀！</div>
+          <a class="map-link" href="https://maps.google.com/?q=Dragon+Bridge+Da+Nang" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item">
+      <div class="item-icon icon-shop">🏮</div>
+      <div class="item-body">
+        <div class="item-type">夜市</div>
+        <div class="item-name">金龍夜市（Han Market Night Market）</div>
+        <div class="item-desc">峴港熱鬧夜市，可購買紀念品、品嚐當地小吃。</div>
+        <a class="map-link" href="https://maps.google.com/?q=Con+Market+Night+Market+Da+Nang" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          在 Google Maps 查看
+        </a>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- 6/22 -->
+  <div id="d622" class="day-panel">
+    <div class="day-header">
+      <div class="date-full">2025年6月22日 · 第二天</div>
+      <h2>五行山探秘</h2>
+      <span class="hotel-tag">🏨 Hilton Da Nang</span>
+    </div>
+ 
+    <div class="section-label">全天 · 景點</div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="五行山">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">⛰️</div>
+        <div class="item-body">
+          <div class="item-type">世界遺產景點</div>
+          <div class="item-name">五行山（Marble Mountains）</div>
+          <div class="item-desc">由金、木、水、火、土五座大理石山組成，內有神祕洞窟、佛教寺廟與雕刻藝術。可搭電梯上山，洞穴中有天然光線灑落，宛如仙境。入場約 40,000 越盾/人，可在山下購買大理石雕刻紀念品。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Marble+Mountains+Da+Nang" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="note-box">
+      💡 <strong>小提醒：</strong>五行山內步道較多階梯，建議穿著舒適好走的鞋子。山頂可俯瞰峴港海岸線，風景非常美麗！
+    </div>
+  </div>
+ 
+  <!-- 6/23 -->
+  <div id="d623" class="day-panel">
+    <div class="day-header">
+      <div class="date-full">2025年6月23日 · 第三天</div>
+      <h2>移往會安古鎮</h2>
+      <span class="hotel-tag">🏨 La Siesta Hoi An Resort & Spa</span>
+    </div>
+ 
+    <div class="section-label">古鎮漫遊 · 需購票入場</div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1588394292035-a496bafdcacd?w=800&q=80" alt="會安古鎮">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🏯</div>
+        <div class="item-body">
+          <div class="item-type">世界文化遺產</div>
+          <div class="item-name">會安古鎮（Hoi An Ancient Town）</div>
+          <div class="item-desc">聯合國教科文組織世界文化遺產，保存完整的15世紀貿易港口小鎮。購買門票後可進入各個古蹟景點。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Hoi+An+Ancient+Town" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" alt="日本橋">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🌉</div>
+        <div class="item-body">
+          <div class="item-type">古蹟</div>
+          <div class="item-name">日本橋（來遠橋 Cầu Chùa）</div>
+          <div class="item-desc">建於18世紀的拱形廊橋，是會安最具代表性的地標，橋上有小廟，融合日本、中國、越南建築風格。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Japanese+Covered+Bridge+Hoi+An" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1564507592333-c60657b95a11?w=800&q=80" alt="福建會館">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🏛️</div>
+        <div class="item-body">
+          <div class="item-type">古蹟</div>
+          <div class="item-name">福建會館（Phúc Kiến Assembly Hall）</div>
+          <div class="item-desc">會安最大的華人會館，建於1697年，供奉天后媽祖，閩南建築風格精美，彩色磁磚拼貼非常精緻。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Fujian+Assembly+Hall+Hoi+An" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=800&q=80" alt="陳家祠堂">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🏠</div>
+        <div class="item-body">
+          <div class="item-type">古蹟</div>
+          <div class="item-name">陳家祠堂（Trần Family Chapel）</div>
+          <div class="item-desc">建於200多年前的越南傳統家族祠堂，融合越南、中國、日本建築元素，保存相當完整。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Tran+Family+Chapel+Hoi+An" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="section-label">下午 · 咖啡時光</div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1559056199-641a0ac8b3f0?w=800&q=80" alt="Uncle Huan Coffee">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-food">☕</div>
+        <div class="item-body">
+          <div class="item-type">特色咖啡廳</div>
+          <div class="item-name">Uncle Huan Coffee</div>
+          <div class="item-desc">會安網紅咖啡店，以精緻拉花聞名，適合拍照打卡。環境舒適，適合歇腳休息。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Uncle+Huan+Coffee+Hoi+An" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="section-label">晚餐 · 必吃美食</div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80" alt="Morning Glory Restaurant">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-food">🍽️</div>
+        <div class="item-body">
+          <div class="item-type">晚餐 · 當地名店</div>
+          <div class="item-name">Morning Glory Restaurant</div>
+          <div class="item-desc">會安最著名餐廳之一，主廚 Ms. Vy 推廣會安傳統料理，必點以下特色菜：</div>
+          <div class="menu-list">
+            <span class="menu-tag">🍜 高樓麵 Cao Lầu</span>
+            <span class="menu-tag">🍜 廣麵 Mì Quảng</span>
+            <span class="menu-tag">🌹 白玫瑰 Bánh Bao Bánh Vạc</span>
+            <span class="menu-tag">🥟 炸雲吞 Hoành Thánh Chiên</span>
+            <span class="menu-tag">🍚 雞肉飯 Cơm Gà</span>
+          </div>
+          <br>
+          <a class="map-link" href="https://maps.google.com/?q=Morning+Glory+Restaurant+Hoi+An" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- 6/24 -->
+  <div id="d624" class="day-panel">
+    <div class="day-header">
+      <div class="date-full">2025年6月24日 · 第四天</div>
+      <h2>椰子村水上體驗</h2>
+      <span class="hotel-tag">🏨 La Siesta Hoi An Resort & Spa</span>
+    </div>
+ 
+    <div class="section-label">全天 · 一日遊</div>
+
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800&q=80" alt="椰子村">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🥥</div>
+        <div class="item-body">
+          <div class="item-type">生態體驗</div>
+          <div class="item-name">椰子船體驗（Cam Thanh Coconut Village）</div>
+          <div class="item-desc">搭乘越南傳統圓形竹籃船穿越茂密椰子林水道，船夫會表演精彩的旋轉特技！是會安最受歡迎的特色體驗之一，充滿自然氣息。通常包含捕魚、採椰子、在水上享用新鮮椰子等活動。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Cam+Thanh+Coconut+Village+Hoi+An" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="note-box">
+      💡 <strong>小提醒：</strong>建議穿著可弄濕的衣服或帶替換衣物。防曬非常重要，記得帶帽子與防曬乳！
+    </div>
+  </div>
+ 
+  <!-- 6/25 -->
+  <div id="d625" class="day-panel">
+    <div class="day-header">
+      <div class="date-full">2025年6月25日 · 第五天</div>
+      <h2>巴拿山一日遊</h2>
+      <span class="hotel-tag">🏨 Hilton Da Nang（返回峴港）</span>
+    </div>
+ 
+    <div class="section-label">上午 · 前往巴拿山</div>
+ 
+    <div class="item">
+      <div class="item-icon icon-transport">🚗</div>
+      <div class="item-body">
+        <div class="item-type">交通</div>
+        <div class="item-name">Grab 叫車前往巴拿山</div>
+        <div class="item-desc">從峴港市區搭 Grab 前往巴拿山纜車站（約 30 分鐘車程）。</div>
+        <a class="map-link" href="https://maps.google.com/?q=Ba+Na+Hills+Cable+Car+Station+Da+Nang" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          纜車站 Google Maps
+        </a>
+      </div>
+    </div>
+ 
+    <div class="item">
+      <div class="item-icon icon-sight">🏰</div>
+      <div class="item-body">
+        <div class="item-type">景點</div>
+        <div class="item-name">越南順化皇城造景入口</div>
+        <div class="item-desc">巴拿山園區入口以越南順化皇城為主題設計，金色宮殿造型壯觀，是拍照打卡的好地點。</div>
+        <a class="map-link" href="https://maps.google.com/?q=Ba+Na+Hills+Da+Nang" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          在 Google Maps 查看
+        </a>
+      </div>
+    </div>
+ 
+    <div class="item">
+      <div class="item-icon icon-transport">🚡</div>
+      <div class="item-body">
+        <div class="item-type">交通</div>
+        <div class="item-name">搭纜車上山</div>
+        <div class="item-desc">巴拿山纜車曾創下多項金氏世界紀錄，單程約20分鐘，沿途可欣賞雲霧繚繞的山林美景。</div>
+      </div>
+    </div>
+ 
+    <div class="section-label">山頂 · 主要景點</div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=800&q=80" alt="佛手天空步道">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🤲</div>
+        <div class="item-body">
+          <div class="item-type">必訪景點</div>
+          <div class="item-name">佛手天空步道（Golden Bridge）</div>
+          <div class="item-desc">由巨大石頭手托起的黃金橋，全球熱搜景點！橋身位於雲霧之中，宛如仙境，是巴拿山最具代表性的拍照地點。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Golden+Bridge+Ba+Na+Hills" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item">
+      <div class="item-icon icon-sight">🌸</div>
+      <div class="item-body">
+        <div class="item-type">景點</div>
+        <div class="item-name">花園區散步</div>
+        <div class="item-desc">山頂有法式花園，種植各種色彩繽紛的花卉，適合悠閒漫步欣賞。</div>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1580381177220-f75f937abc83?w=800&q=80" alt="靈應寺">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🛕</div>
+        <div class="item-body">
+          <div class="item-type">景點</div>
+          <div class="item-name">靈應寺 & 大佛</div>
+          <div class="item-desc">山頂的靈應寺供奉67公尺高的巨型白色佛像，俯瞰峴港海岸線，視野遼闊，氣勢磅礴。</div>
+          <a class="map-link" href="https://maps.google.com/?q=Linh+Ung+Pagoda+Ba+Na+Hills" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item item-with-image">
+      <img class="item-image" src="https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=800&q=80" alt="法國村">
+      <div style="display: flex; gap: 20px; align-items: flex-start;">
+        <div class="item-icon icon-sight">🇫🇷</div>
+        <div class="item-body">
+          <div class="item-type">景點</div>
+          <div class="item-name">法國村（Fantasy Park）</div>
+          <div class="item-desc">仿造法國小鎮的主題樂園區，有歡樂城堡、室內遊樂設施、蠟像館等，適合拍照遊覽。</div>
+          <a class="map-link" href="https://maps.google.com/?q=French+Village+Ba+Na+Hills" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            在 Google Maps 查看
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="section-label">午餐 · 園區內用餐</div>
+ 
+    <div class="item">
+      <div class="item-icon icon-food">🍽️</div>
+      <div class="item-body">
+        <div class="item-type">中餐</div>
+        <div class="item-name">園區自助餐（票價通常含餐）</div>
+        <div class="item-desc">可選擇以下餐廳用餐：</div>
+        <div class="menu-list">
+          <span class="menu-tag">🍽️ Four Seasons Restaurant</span>
+          <span class="menu-tag">🌲 Taiga Restaurant</span>
+          <span class="menu-tag">🇮🇳 Bharata Restaurant</span>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="section-label">下午 · 返回峴港</div>
+ 
+    <div class="item">
+      <div class="item-icon icon-transport">🚡</div>
+      <div class="item-body">
+        <div class="item-type">交通</div>
+        <div class="item-name">搭纜車下山 → Grab 返回峴港</div>
+        <div class="item-desc">下午離開巴拿山，搭纜車下山後，叫 Grab 返回峴港市區。</div>
+      </div>
+    </div>
+ 
+    <div class="note-box">
+      🧥 <strong>重要提醒：</strong>巴拿山山上溫度通常比峴港市區低將近 10 度，即使夏天也請多帶一件薄外套或針織衫，以免著涼！
+    </div>
+  </div>
+ 
+  <!-- 6/26 -->
+  <div id="d626" class="day-panel">
+    <div class="day-header">
+      <div class="date-full">2025年6月26日 · 第六天</div>
+      <h2>峴港自由日</h2>
+      <span class="hotel-tag">🏨 Hilton Da Nang</span>
+    </div>
+ 
+    <div class="rest-day" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80');">
+      <div class="big-emoji">🌊</div>
+      <h3>輕鬆自由行</h3>
+      <p>今天是返回台灣前的最後一天，<br>可在峴港海灘漫步、享用美食、<br>採購紀念品或在飯店悠閒放鬆。</p>
+      <br>
+      <a class="map-link" href="https://maps.google.com/?q=My+Khe+Beach+Da+Nang" target="_blank" style="justify-content:center; color: #fff; border-bottom-color: rgba(255,255,255,0.5);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        美溪沙灘（Mỹ Khê Beach）
+      </a>
+    </div>
+  </div>
+ 
+  <!-- 6/27 -->
+  <div id="d627" class="day-panel">
+    <div class="day-header">
+      <div class="date-full">2025年6月27日 · 第七天</div>
+      <h2>返回台灣</h2>
+    </div>
+ 
+    <div class="flight-card">
+      <div>
+        <div class="airline">長榮航空 EVA AIR</div>
+        <div style="font-size:12px;color:var(--blush);">峴港 → 台灣</div>
+      </div>
+      <div class="flight-times">
+        <div class="flight-time">
+          <div class="time">12:55</div>
+          <div class="city">峴港 起飛</div>
+        </div>
+        <div class="flight-arrow"></div>
+        <div class="flight-time">
+          <div class="time">16:45</div>
+          <div class="city">台灣 抵達</div>
+        </div>
+      </div>
+    </div>
+ 
+    <div class="item">
+      <div class="item-icon icon-transport">✈️</div>
+      <div class="item-body">
+        <div class="item-type">交通</div>
+        <div class="item-name">峴港國際機場（Da Nang International Airport）</div>
+        <div class="item-desc">建議起飛前 2-3 小時抵達機場辦理登機手續。可搭 Grab 前往機場。</div>
+        <a class="map-link" href="https://maps.google.com/?q=Da+Nang+International+Airport" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          在 Google Maps 查看
+        </a>
+      </div>
+    </div>
+ 
+    <div class="note-box">
+      🎉 <strong>旅程圓滿結束！</strong>可以回台灣工作了！
+    </div>
+  </div>
+ 
+</main>
+ 
+<script>
+function showDay(id) {
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['d621','d622','d623','d624','d625','d626','d627'].indexOf(id);
+  document.querySelectorAll('.date-btn')[idx].classList.add('active');
+  window.scrollTo({ top: document.querySelector('.hero').offsetHeight, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
+ 
